@@ -1,0 +1,23 @@
+<p class="text-center">Vyplňte údaje níže a po kliknutí na tlačítko vytvořit účet se zaregistrujete</p>
+<form class="centered-div row" action="index.php?page=vysledek_registrace" method="post">
+    <div class="input-group mb-3"><span id="firstnameLabel" class="input-group-text col-4">Jméno</span><input class="form-control col-8" id="firstName" name="firstName" type="text" placeholder="Zadejte jméno" aria-label="Username"></div>
+    <div class="input-group mb-3"><span id="lastnameLabel" class="input-group-text col-4">Příjmení</span><input class="form-control col-8" id="lastName" name="lastName" type="text" placeholder="Zadejte příjmení" aria-label="Username"></div>
+    <div class="input-group mb-3"><span id="emailLabel" class="input-group-text col-4">E-mail</span><input class="form-control col-8" id="email"  name="email" autocomplete="true" type="email" placeholder="Zadejte email" aria-label=""></div>
+    <div class="input-group mb-3"><span id="passwordLabel" class="input-group-text col-4">Heslo</span><input class="form-control col-8" id="password" name="password" type="password" placeholder="Zadejte heslo" aria-label=""></div>
+    <div class="input-group mb-3"><span id="passwordRepeatedLabel" class="input-group-text col-4">Heslo znovu</span><input class="form-control col-8" id="passwordRepeated" name="passwordRepeated" type="password" placeholder="Zadejte znovu heslo" aria-label=""></div>
+
+    <div class="input-group mb-3">
+        <span id="basic-addon-4" class="input-group-text col-4">Skupina</span>
+        <select class="form-select col-8" id="groupSelect" name="selectedGroup">
+            <option value="0">Autor</option>
+            <option value="1">Recenzent</option>
+            <option value="2">Admin</option>
+            <option value="3">SuperAdmin</option>
+        </select>
+    </div>
+
+    <div class="input-group mr-2 justify-content-end"><button class="btn btn-primary text-nowrap d-lg-flex" type="submit">Vytvořit účet</button></div>
+</form>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/jquery-3.7.1.min.js"></script>
+<script src="assets/registrationView.js"></script>

@@ -1,0 +1,29 @@
+<p class="text-center">Vyplňte informace níže pro vložení článku ke schválení. Jakmile bude článek schválen administrátory portálu, budou ho moci ostatní uživatelé vidět na domovské obrazovce.</p>
+<form class="centered-div" action="index.php?page=vysledek_nahrani" enctype="multipart/form-data" method="post">
+    <div class="container row">
+        <div class="input-group mb-3"><span id="basic-addon1" class="input-group-text col-6">Název článku</span><input class="form-control col-6" type="text" placeholder="Zadejte název článku" aria-label="Username" name="nazev"></div>
+        <div class="input-group mb-3"><span id="basic-addon-1" class="input-group-text col-6">Stručný popis</span><input class="form-control col-6" type="text" placeholder="Zadejte popis" aria-label="Username" name="popis"></div>
+        <div class="input-group mb-3"><span id="basic-addon-2" class="input-group-text col-12">Článek</span></div>
+        <div class="input-group mb-3">
+            <textarea class="form-control col-12" placeholder="Zadejte text" style="height: 300px;" name="clanek"></textarea>
+        </div>
+
+        <div class="input-group mb-3">
+            <span id="basic-addon-2" class="input-group-text col-12">Nahrát obrázky</span>
+        </div>
+        <div class="input-group mb-3">
+            <input class="btn btn-primary btn-secondary text-nowrap d-lg-flex col-md-12 col-12" type="file" name="images[]" accept="image/*" multiple>
+        </div>
+
+        <div class="input-group mb-3">
+            <span id="basic-addon-2" class="input-group-text col-12">Nahrát soubory</span>
+        </div>
+
+        <div class="input-group mb-3">
+            <input class="btn btn-primary btn-dark text-nowrap d-lg-flex col-md-12 col-12" type="file" name="files[]" multiple>
+        </div>
+
+        <button class="btn btn-primary text-nowrap d-lg-flex col-md-12 loadButtons" type="submit">Odeslat</button>
+    </div>
+</form>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>

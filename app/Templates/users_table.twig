@@ -1,0 +1,109 @@
+<p class="text-center">Níže najdete seznam uživatelů čekání na schválení role a seznam všech uživatelů.</p>
+<div class="card-body p-4 bg-white rounded">
+
+
+    <h3>Schválení uživatelů</h3>
+    {% if pendingRegistrations|length == 0 %}
+        <h4>Nejsou žádné neschválené registrace</h4>
+
+    {% else %}
+    <div class="table-responsive">
+        <table id="example" style="width:100%" class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Jméno</th>
+                <th>Příjmení</th>
+                <th>E-mail</th>
+                <th>Role</th>
+                <th>Schválit</th>
+                <th>Zamítnout</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for item in pendingRegistrations %}
+            <tr>
+                <td>{{ item.jmeno }}</td>
+                <td>{{ item.prijmeni }}</td>
+                <td>{{ item.email }}</td>
+                <td>
+                    {% if item.role == '0' %}
+                        Autor
+                    {% elseif item.role == '1' %}
+                        Recenzent
+                    {% elseif item.role == '2' %}
+                        Admin
+                    {% else %}
+                        SuperAdmin
+                    {% endif %}
+                </td>
+                <td>
+                    <form action="index.php?page=sprava_uzivatelu&akce=schvalit&id={{ item.id }}" method="post">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-check"></i> Schválit žádost
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form action="index.php?page=sprava_uzivatelu&akce=zamitnout&id={{ item.id }}" method="post">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-times"></i> Zamítnout žádost
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+
+    <h3>Tabulka uživatelů</h3>
+    {% if users|length == 0 %}
+        <h4>Nejsou žádní uživatelé, kterým by šla upravit role</h4>
+    {% else %}
+    <div class="table-responsive">
+        <table id="example" style="width:100%" class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Jméno</th>
+                <th>Příjmení</th>
+                <th>E-mail</th>
+                <th>Role</th>
+                <th>Smazat</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in users %}
+                <tr>
+                    <td>{{ item.jmeno }}</td>
+                    <td>{{ item.prijmeni }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>
+                        {% if item.role == '0' %}
+                            Autor
+                        {% elseif item.role == '1' %}
+                            Recenzent
+                        {% elseif item.role == '2' %}
+                            Admin
+                        {% else %}
+                            SuperAdmin
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form action="index.php?page=sprava_uzivatelu&akce=smazat&id={{ item.id }}" method="post">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fa fa-times"></i> Vymazat účet
+                            </button>
+                        </form>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>

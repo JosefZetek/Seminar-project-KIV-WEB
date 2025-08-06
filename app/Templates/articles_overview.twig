@@ -1,0 +1,68 @@
+<div class="container">
+    <!--Introductory text-->
+    <div class="intro">
+        <p class="text-center">Konferenční systém zpracovaný v rámci semestrální práce z předmětu KIV/WEB v roce 2023. Níže můžete nalézt schválené články.</p>
+    </div>
+    {% if articles_array|length == 0 %}
+        <h4>Žádné články nejsou k dispozici</h4>
+    {% endif %}
+
+    <!--Articles-->
+    <div class="row articles">
+    {% for article in articles_array %}
+
+
+        <div class="col-sm-6 col-md-4 item">
+            {%  if article.images|length > 0 %}
+            <div class="carousel slide" data-bs-ride="carousel" id="carousel-{{ loop.index }}">
+                <div class="carousel-inner">
+                        {% for image in article.images %}
+                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                <img class="w-100 d-block" src="{{ 'clanky/' ~ article.id ~ '/obrazky/' ~ image }}" alt="Slide Image">
+                            </div>
+                        {% endfor %}
+                </div>
+
+                {%  if article.images|length > 1 %}
+                <div><a class="carousel-control-prev" href="#carousel-{{ loop.index }}" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-{{ loop.index }}" role="button" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
+                {%  endif %}
+
+                <ol class="carousel-indicators">
+
+                    {% for loop_index in 0..(article.images|length - 1) %}
+                        <li data-bs-target="#carousel-{{ loop.index }}" data-bs-slide-to="{{ loop_index }}" class="active"></li>
+                    {% endfor %}
+                </ol>
+            </div>
+            {% endif %}
+            <h3 class="name">{{ article.nazev }}</h3>
+
+            <!--Rating-->
+            <div class="user-body">
+                {% set fullStars = article.rating|round %}
+                {% set emptyStars = 5 - fullStars %}
+
+                {% for i in 1..5 %}
+                    {% if i <= fullStars %}
+                        <span class="fa fa-star checked"></span>
+                    {% else %}
+                        <span class="fa fa-star"></span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+
+            <!--Description-->
+            <p class="description">
+                {{ article.popis }}
+            </p>
+            <!--Clickable button-->
+            <a class="action" href="index.php?page=clanek&id={{ article.id }}">
+                <i class="fa fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>

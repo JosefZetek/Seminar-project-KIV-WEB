@@ -1,0 +1,127 @@
+<div class="container">
+
+    <div class="carousel slide" data-bs-ride="carousel" id="carousel-1">
+        <div class="carousel-inner">
+            {% for image in images %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <img class="w-100 d-block" src="{{ 'clanky/' ~ id ~ '/obrazky/' ~ image }}" alt="Slide Image">
+                </div>
+            {% endfor %}
+        </div>
+        {% if images|length > 0 %}
+
+        {% if images|length > 1 %}
+        <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
+        {% endif %}
+
+        <ol class="carousel-indicators">
+            {% for loop_index in 0..(images|length - 1) %}
+                <li data-bs-target="#carousel-1" data-bs-slide-to="{{ loop_index }}" {% if loop_index == 0 %}class="active"{% endif %}></li>
+            {% endfor %}
+        </ol>
+        {% endif %}
+    </div>
+    <h2 class="name">{{nazev}}</h2>
+    <div>
+
+        <!-- Zobrazeni hodnoceni -->
+        {% if schvaleno %}
+
+            <span class="heading">Hodnocení textu</span>
+            {% set fullStars = rating.text |round %}
+            {% set emptyStars = 5 - fullStars %}
+
+            {% for i in 1..5 %}
+                {% if i <= fullStars %}
+                    <span class="fa fa-star checked"></span>
+                {% else %}
+                    <span class="fa fa-star"></span>
+                {% endif %}
+            {% endfor %}
+
+            <br>
+            <span class="heading">Hodnocení grafiky</span>
+            {% set fullStars = rating.grafika |round %}
+            {% set emptyStars = 5 - fullStars %}
+
+            {% for i in 1..5 %}
+                {% if i <= fullStars %}
+                    <span class="fa fa-star checked"></span>
+                {% else %}
+                    <span class="fa fa-star"></span>
+                {% endif %}
+            {% endfor %}
+
+            <br>
+            <span class="heading">Hodnocení přílohy</span>
+            {% set fullStars = rating.prilohy |round %}
+            {% set emptyStars = 5 - fullStars %}
+
+            {% for i in 1..5 %}
+                {% if i <= fullStars %}
+                    <span class="fa fa-star checked"></span>
+                {% else %}
+                    <span class="fa fa-star"></span>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <p class="card-text">
+                {{ popis }}
+            </p>
+        </div>
+    </div>
+    <h4 class="name">Obsah článku</h4>
+
+    <div class="card">
+        <div class="card-body">
+            <p class="card-text">{{ clanek }}</p>
+        </div>
+    </div>
+
+    <h4 class="name">Přílohy</h4>
+    {% for file in files %}
+        <a href="{{ 'clanky/' ~ id ~ '/prilohy/' ~ file }}" class="text-decoration-none">
+            <button type="button" class="btn btn-primary">{{ file }}
+                <!-- Download icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                </svg>
+            </button>
+        </a>
+    {% endfor %}
+    {% if files|length == 0 %}
+    <p>Ke článku nejsou k dispozici žádné přílohy</p>
+    {% endif %}
+
+    {% if schvaleno == 0 %}
+    <h4>Hodnocení textu</h4>
+    <form class="centered-div" action="index.php?page=clanek&akce=schvalit&id={{ id }}" method="post">
+        <span id="basic-addon1" class="input-group-text col-8">Obsah textu</span>
+        <input id="input-id" type="text" class="rating col-8" name="kvalitaTextu">
+
+        <span id="basic-addon1" class="input-group-text col-8">Grafické zpracování</span>
+        <input id="input-id" type="text" class="rating col-8" name="kvalitaGrafiky" >
+
+
+        <span id="basic-addon1" class="input-group-text col-8">Přílohy</span>
+        <input id="input-id" type="text" class="rating col-8" name="kvalitaPriloh" >
+
+        <button type="submit" class="btn btn-success col-8">Schválit</button>
+    </form>
+
+    <form class="centered-div" action="index.php?page=clanek&akce=zamitnout&id={{ id }}" method="post">
+        <button type="submit" class="btn btn-danger col-8">Zamítnout</button>
+    </form>
+    {% endif %}
+
+</div>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/jquery-3.7.1.min.js"></script>
+
+<script>
+</script>
